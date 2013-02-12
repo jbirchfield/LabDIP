@@ -1,16 +1,14 @@
 package dip.lab2.student.solution1;
 
-import dip.lab2.*;
-
 /**
  * An example low-level class. Does this class definition follow the DIP?
  * If not, fix it.
  *
  * Any other best practice violations? Fix them too.
  *
- * @author your name goes here
+ * @author Jim Birchfield
  */
-public class BaggageServiceTipCalculator {
+public class BaggageServiceTipCalculator implements Worker {
     private static final double MIN_BILL = 0.00;
     private static final double MAX_BILL = 100.00;
     private static final String BILL_ENTRY_ERR =
@@ -19,32 +17,29 @@ public class BaggageServiceTipCalculator {
     private static final double GOOD_RATE = 0.20;
     private static final double FAIR_RATE = 0.15;
     private static final double POOR_RATE = 0.10;
-
+    private String serviceQuality;
     private double baseTipPerBag;
     private int bagCount;
-    public enum ServiceQuality {
-        GOOD, FAIR, POOR
-    }
-    private ServiceQuality serviceQuality;
+    
 
-    public BaggageServiceTipCalculator(ServiceQuality q, int bags) {
+    public BaggageServiceTipCalculator(String q, int bags) {
         this.setServiceRating(q); // perform validation
         this.setBagCount(bags);
 
         baseTipPerBag = 1.00; // set default value
     }
 
-    public double getTipForBaggeHandler() {
+    public double getTotalTips() {
         double tip = 0.00; // always initialize local variables
 
         switch(serviceQuality) {
-            case GOOD:
+            case "GOOD":
                 tip = baseTipPerBag * bagCount * (1 + GOOD_RATE);
                 break;
-            case FAIR:
+            case "FAIR":
                 tip = baseTipPerBag * bagCount * (1 + FAIR_RATE);
                 break;
-            case POOR:
+            case "POOR":
                 tip = baseTipPerBag * bagCount * (1 + POOR_RATE);
                 break;
         }
@@ -52,12 +47,11 @@ public class BaggageServiceTipCalculator {
         return tip;
     }
 
-    public final void setServiceRating(ServiceQuality q) {
-        // No need to validate because enums provide type safety!
+    public final void setServiceRating(String q) {
         serviceQuality = q;
     }
 
-    public ServiceQuality getServiceQuality() {
+    public String getServiceQuality() {
         return serviceQuality;
     }
 

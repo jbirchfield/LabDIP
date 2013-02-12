@@ -1,10 +1,9 @@
 package dip.lab2.student.solution1;
 
 // An useful import if you need it.
-import dip.lab2.*;
+
 import java.text.NumberFormat;
-// Another useful import if you need it.
-import javax.swing.JOptionPane;
+
 
 /**
  * Just a test class for input and output.
@@ -26,9 +25,23 @@ public class Startup {
  
     public static void main(String[] args) {
         
-        BaggageServiceTipCalculator service =
-                new BaggageServiceTipCalculator(
-                BaggageServiceTipCalculator.ServiceQuality.FAIR,5);
+        BaggageServiceTipCalculator bagwrk1 =
+                new BaggageServiceTipCalculator("FAIR",5);
+        
+        FoodServiceTipCalculator fswrk1 =
+                new FoodServiceTipCalculator("GOOD", 50.00);
+        
+        CustomerService cs = new CustomerService();
+        
+        // Just utility code to format numbers nice.
+        NumberFormat nf = NumberFormat.getCurrencyInstance();
+        
+        System.out.println("Worker 1 total tips: " +
+            nf.format(cs.getTotalTipsForWorker(bagwrk1)));
+        System.out.println("Worker 2 total tips: " +
+            nf.format(cs.getTotalTipsForWorker(fswrk1)));
+        
+        
         
     }
 

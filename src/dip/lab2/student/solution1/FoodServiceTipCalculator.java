@@ -1,16 +1,14 @@
 package dip.lab2.student.solution1;
 
-import dip.lab2.*;
-
 /**
  * An example low-level class. Does this class definition follow the DIP?
  * If not, fix it.
  *
  * Any other best practice violations? Fix them too.
  *
- * @author your name goes here
+ * @author Jim Birchfield
  */
-public class FoodServiceTipCalculator {
+public class FoodServiceTipCalculator implements Worker {
     private static final double MIN_BILL = 0.00;
     private static final String BILL_ENTRY_ERR =
             "Error: bill must be greater than or equal to " + MIN_BILL;
@@ -19,27 +17,25 @@ public class FoodServiceTipCalculator {
     private static final double POOR_RATE = 0.10;
 
     private double bill;
-    public enum ServiceQuality {
-        GOOD, FAIR, POOR
-    }
-    private ServiceQuality serviceQuality;
+    
+    private String serviceQuality;
 
-    public FoodServiceTipCalculator(ServiceQuality q, double billAmt) {
+    public FoodServiceTipCalculator(String q, double billAmt) {
         this.setServiceRating(q);
         this.setBill(billAmt);
     }
 
-    public double getTip() {
+    public double getTotalTips() {
         double tip = 0.00; // always initialize local variables
 
         switch(serviceQuality) {
-            case GOOD:
+            case "GOOD":
                 tip = bill * GOOD_RATE;
                 break;
-            case FAIR:
+            case "FAIR":
                 tip = bill * FAIR_RATE;
                 break;
-            case POOR:
+            case "POOR":
                 tip = bill * POOR_RATE;
                 break;
         }
@@ -54,12 +50,11 @@ public class FoodServiceTipCalculator {
         bill = billAmt;
     }
 
-    public final void setServiceRating(ServiceQuality q) {
-        // No need to validate because enums provide type safety!
+    public final void setServiceRating(String q) {
         serviceQuality = q;
     }
 
-    public ServiceQuality getServiceQuality() {
+    public String getServiceQuality() {
         return serviceQuality;
     }
 
